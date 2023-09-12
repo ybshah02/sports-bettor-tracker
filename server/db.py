@@ -1,3 +1,4 @@
-from server import db
+from server import app, db
 
-db.create_all()
+with app.app_context():
+    db.create_all()
