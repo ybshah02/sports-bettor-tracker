@@ -125,7 +125,10 @@ def main():
             st.write(f"On {date_str}, {bet['name']} placed a bet of {bet['amount']:.2f} and did not win.")
 
         # add option to delete a bet
-        if st.button(f"Remove {bet['name']}'s bet of ${bet['amount']}"):
+        if st.button(
+            label=f"Remove {bet['name']}'s bet of ${bet['amount']}",
+            key=f"remove_button_{bet['id']}"
+        ):
             remove_a_bet(bet['id'])
 
 
