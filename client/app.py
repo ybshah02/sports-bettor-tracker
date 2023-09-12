@@ -6,7 +6,7 @@ import os
 
 port = int(os.environ.get("PORT", 8080))
 #st.set_option('server.address', '0.0.0.0')
-st.set_option('server.port', port)
+#st.set_option('server.port', port)
 BASE_URL = "https://sports-betting-tracker-107bb77d84cc.herokuapp.com/"  # Flask server URL
 
 def get_all_bets():
@@ -40,21 +40,22 @@ def build_chart(bets):
 
     st.subheader("Profits Over Time", divider=True)
 
-    # Convert the bets to a DataFrame for easier manipulation
-    df = pd.DataFrame(bets)
+    if len(bets) > 0:
+        # Convert the bets to a DataFrame for easier manipulation
+        df = pd.DataFrame(bets)
 
-    # Convert the date from string to datetime
-    df['date'] = df['date'].apply(lambda x: datetime.strptime(x, '%a, %d %b %Y %H:%M:%S %Z').strftime('%d/%m/%Y'))
-    
-    # Calculate the profit for each bet
-    df['profit'] = df['winnings'] - df['amount']
-    
-    # Aggregate and get cumulative profit over time
-    df.sort_values(by="date", inplace=True)
-    df['cumulative_profit'] = df['profit'].cumsum()
+        # Convert the date from string to datetime
+        df['date'] = df['date'].apply(lambda x: datetime.strptime(x, '%a, %d %b %Y %H:%M:%S %Z').strftime('%d/%m/%Y'))
+        
+        # Calculate the profit for each bet
+        df['profit'] = df['winnings'] - df['amount']
+        
+        # Aggregate and get cumulative profit over time
+        df.sort_values(by="date", inplace=True)
+        df['cumulative_profit'] = df['profit'].cumsum()
 
-    # Plotting
-    st.line_chart(df.set_index('date')['cumulative_profit'])
+        # Plotting
+        st.line_chart(df.set_index('date')['cumulative_profit'])
 
 def create_new_bet():
     # Display form to add a new bet
