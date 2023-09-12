@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 
 
 class Bet(db.Model):
+    __tablename__ = 'bet'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     amount = db.Column(db.Float, nullable=False)
@@ -61,6 +62,4 @@ def remove_bet(bet_id):
     return jsonify({"message": "Bet removed successfully!"}), 200
 
 if __name__ == "__main__":
-    with app.app_context():  # Pushes an application context manually
-        db.create_all()
     app.run(debug=True)
