@@ -1,1 +1,1 @@
-web: cd server && flask db upgrade && python server.py
+web: gunicorn server.server:app
