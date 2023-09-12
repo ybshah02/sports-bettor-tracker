@@ -65,6 +65,7 @@ def create_new_bet():
     winnings = st.number_input("Winnings", min_value=0.0, step=0.01)
     if st.button("Add Bet"):
         add_bet(name, amount, winnings)
+        st.experimental_rerun()
     
 
 def main():
@@ -130,6 +131,7 @@ def main():
             key=f"remove_button_{bet['id']}"
         ):
             remove_a_bet(bet['id'])
+            st.experimental_rerun()
 
 
 if __name__ == "__main__":
