@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
 # Configuration for SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bets.db'
+DATABASE_URL = os.environ.get('DATABASE_URL').replace("://", "ql://", 1) # to make the URL compatible with SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -16,6 +18,10 @@ class Bet(db.Model):
     amount = db.Column(db.Float, nullable=False)
     winnings = db.Column(db.Float, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return jsonify(error=str(e)), 500
 
 @app.route('/')
 def index():
