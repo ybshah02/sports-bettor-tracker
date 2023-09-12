@@ -5,8 +5,8 @@ import pandas as pd
 import os
 
 port = int(os.environ.get("PORT", 8080))
-st.set_option('server.address', '0.0.0.0')
-st.set_option('server.port', port)
+#st.set_option('server.address', '0.0.0.0')
+#st.set_option('server.port', port)
 BASE_URL = "https://sports-betting-tracker-107bb77d84cc.herokuapp.com/"  # Flask server URL
 
 def get_all_bets():
