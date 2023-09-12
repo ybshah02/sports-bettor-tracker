@@ -1,1 +1,1 @@
-web: cd server && flask db upgrade && python app.py
+web: cd server && flask db upgrade && python server.py
