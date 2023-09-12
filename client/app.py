@@ -2,8 +2,12 @@ from datetime import datetime
 import streamlit as st
 import requests
 import pandas as pd
+import os
 
-BASE_URL = "http://127.0.0.1:5000"  # Flask server URL
+port = int(os.environ.get("PORT", 8080))
+st.set_option('server.address', '0.0.0.0')
+st.set_option('server.port', port)
+BASE_URL = "https://sports-betting-tracker-107bb77d84cc.herokuapp.com/"  # Flask server URL
 
 def get_all_bets():
     response = requests.get(f"{BASE_URL}/get_bets")
